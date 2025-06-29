@@ -5,7 +5,7 @@
                 to="/"
             >
                 <img 
-                    src="@/assets/importer-logo.png" 
+                    src="@/assets/invoicer-logo.png" 
                     class="img-fluid"
                     style="width: 200px;"
                 >
