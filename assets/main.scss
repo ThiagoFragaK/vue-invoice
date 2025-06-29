@@ -1,0 +1,32 @@
+$theme-colors: (
+  "primary": #345163,
+  "secondary": #b6c0c7,
+  "success": #80A98D,
+  "info": #A0D0B8,
+  "light": #fcfcf9,
+  "dark": #0E0500,
+  "warning": #e99e49,
+  "danger": #82585C
+);
+
+$table-variants: $theme-colors;
+
+@import "bootstrap/scss/bootstrap";
+
+body {
+  background-color: #fcfcf9;
+  font-family: 'League Spartan', sans-serif;
+}
+
+.menu-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.form-check-input:checked {
+  background-color: map-get($theme-colors, "primary");
+  border-color: map-get($theme-colors, "primary");
+}
