@@ -123,53 +123,54 @@
         <button 
             type="button" 
             class="btn btn-primary btn-sm mb-2"
+            @click="addItem"
         >
             <LucideIcon icon="Plus" />
             Add new item
         </button>
-        <div class="row">
-            <div class="col-5">
-                <span 
-                    class="form-label"
-                >
-                    Description
-                </span>
-                <input
-                    type="text" 
-                    class="form-control"
-                >
+        <div 
+            style="max-height: 300px; overflow-y: auto; overflow-x: hidden;"
+        >
+            <div 
+                class="row mb-3" 
+                v-for="(item, index) in invoice.items" 
+                :key="index"
+            >
+                <div class="col-5">
+                    <span class="form-label">Description</span>
+                    <input
+                        type="text" 
+                        class="form-control"
+                        v-model="item.description"
+                    >
+                </div>
+                <div class="col-2">
+                    <span class="form-label">Quantity</span>
+                    <input
+                        type="number" 
+                        class="form-control"
+                        v-model.number="item.quantity"
+                    >
+                </div>
+                <div class="col-3">
+                    <span class="form-label">Price</span>
+                    <input
+                        type="number" 
+                        class="form-control"
+                        v-model.number="item.price"
+                    >
+                </div>
+                <div class="col-1 d-flex align-items-end">
+                    <button 
+                        type="button" 
+                        class="btn btn-danger btn-sm"
+                        @click="removeItem(index)"
+                    >
+                        <LucideIcon icon="Minus" />
+                    </button>
+                </div>
             </div>
-            <div class="col-2">
-                <span 
-                    class="form-label"
-                >
-                    Quantity
-                </span>
-                <input
-                    type="number" 
-                    class="form-control"
-                >
-            </div>
-            <div class="col-4">
-                <span 
-                    class="form-label"
-                >
-                    Price
-                </span>
-                <input
-                    type="number" 
-                    class="form-control"
-                >
-            </div>
-            <div class="col-1">
-                <button 
-                    type="button" 
-                    class="btn btn-danger btn-sm mt-4"
-                >
-                    <LucideIcon icon="Minus" />
-                </button>
-            </div>
-        </div>
+        </div>        
     </div>
     <div class="row">
         <button
@@ -209,5 +210,17 @@
                 ],
             }
         }),
+        methods: {
+            addItem() {
+                this.invoice.items.push({
+                    description: '',
+                    quantity: 1,
+                    price: 0
+                });
+            },
+            removeItem(index) {
+                this.invoice.items.splice(index, 1);
+            }
+        }
     }
 </script>
