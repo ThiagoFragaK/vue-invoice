@@ -23,12 +23,10 @@
     </div>
     <div class="container text-center">
         <div class="row mt-4">
-            <div class="col-3"></div>
-            <div class="col-6">
+            <div class="col-md-6 offset-md-3">
                 <InvoiceForm v-if="showInvoiceForm" />
                 <PDFEmbed v-if="showPDFEmbed" />
             </div>
-            <div class="col-2"></div>
         </div>
     </div>
 </template>
