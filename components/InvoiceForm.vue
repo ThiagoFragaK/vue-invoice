@@ -175,16 +175,30 @@
     <div class="row">
         <button
             class="btn btn-secondary mt-4"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmationDialog"
         >
             <LucideIcon icon="SaveAll" />
             Save
         </button>
     </div>
+    
+    <Confirm 
+        id="confirmationDialog"
+        title="Confirm the information provided"
+        message="Are you sure you want to generate the Invoice?"
+        @confirm="generateInvoice"
+    />
 </template>
 
 <script>
+    import Confirm from "@/components/ConfirmDialog.vue";
+
     export default {
         name: "InvoiceForm",
+        components: {
+            Confirm,
+        },
         data: () => ({
             invoice: {
                 number: 'INV-001',
@@ -220,7 +234,10 @@
             },
             removeItem(index) {
                 this.invoice.items.splice(index, 1);
-            }
+            },
+            generateInvoice() {
+                console.log("Generated")
+            },
         }
     }
 </script>
