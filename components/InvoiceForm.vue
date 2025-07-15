@@ -183,7 +183,7 @@
         </button>
     </div>
     
-    <Confirm 
+    <ConfirmDialog 
         id="confirmationDialog"
         title="Confirm the information provided"
         message="Are you sure you want to generate the Invoice?"
@@ -192,35 +192,32 @@
 </template>
 
 <script>
-    import Confirm from "@/components/ConfirmDialog.vue";
-
+    import pdfMake from 'pdfmake/build/pdfmake';
+    import ConfirmDialog from "@/components/ConfirmDialog.vue";
+    
     export default {
         name: "InvoiceForm",
         components: {
-            Confirm,
+            ConfirmDialog,
         },
         data: () => ({
+            pdfUrl: null,
             invoice: {
-                number: 'INV-001',
-                date: '2025-06-23',
-                dueDate: '2025-07-07',
-                from: 'Acme Inc.\n123 Main St\nCity, Country',
-                to: 'Client Name\n456 Avenue\nOther City',
-                currency: 'USD',
-                notes: 'Thanks for your business!',
-                terms: 'Please pay within 14 days.',
-                status: 'unpaid',
+                number: '',
+                date: '',
+                dueDate: '',
+                from: '',
+                to: '',
+                currency: '',
+                notes: '',
+                terms: '',
+                status: '',
                 items: [
                     { 
-                        description: 'Consulting', 
-                        quantity: 2, 
-                        price: 200 
+                        description: '', 
+                        quantity: 0, 
+                        price: 0
                     },
-                    { 
-                        description: 'Hosting', 
-                        quantity: 1, 
-                        price: 80 
-                    }
                 ],
             }
         }),
@@ -235,9 +232,65 @@
             removeItem(index) {
                 this.invoice.items.splice(index, 1);
             },
-            generateInvoice() {
-                console.log("Generated")
+            async generateInvoice() {
+                const docDefinition = {
+                    content: [
+                        { text: 'Invoice', style: 'header' },
+
+                        { text: `Invoice #: ${this.invoice.number}`, margin: [0, 10] },
+                        { text: `Date: ${this.invoice.date}` },
+                        { text: `Due Date: ${this.invoice.dueDate}`, margin: [0, 0, 0, 20] },
+
+                        { text: 'From:', style: 'subheader' },
+                        { text: this.invoice.from, margin: [0, 0, 0, 20] },
+
+                        { text: 'To:', style: 'subheader' },
+                        { text: this.invoice.to, margin: [0, 0, 0, 20] },
+
+                        { text: 'Items', style: 'subheader' },
+                        {
+                            table: {
+                            widths: ['*', 50, 60, 70],
+                            body: [
+                                ['Description', 'Qty', 'Price', 'Total'],
+                                ...this.invoice.items.map(item => [
+                                    item.description,
+                                    item.quantity.toString(),
+                                    `${this.invoice.currency} ${item.price.toFixed(2)}`,
+                                    `${this.invoice.currency} ${(item.quantity * item.price).toFixed(2)}`
+                                ]),
+                                [
+                                    { text: 'Total', colSpan: 3, alignment: 'right' }, {}, {},
+                                    `${this.invoice.currency} ${this.invoice.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}`
+                                ]
+                            ]
+                            }
+                        },
+
+                        { text: 'Notes:', style: 'subheader', margin: [0, 20, 0, 0] },
+                        { text: this.invoice.notes },
+
+                        { text: 'Terms:', style: 'subheader', margin: [0, 20, 0, 0] },
+                        { text: this.invoice.terms },
+
+                        { text: `Status: ${this.invoice.status.toUpperCase()}`, margin: [0, 20, 0, 0] }
+                    ],
+                    styles: {
+                        header: { fontSize: 22, bold: true },
+                        subheader: { fontSize: 14, bold: true }
+                    },
+                    defaultStyle: { fontSize: 12 }
+                }
+
+                pdfMake.createPdf(docDefinition).getBlob(blob => {
+                    console.log(blob)
+                    if (this.pdfUrl) {
+                        URL.revokeObjectURL(this.pdfUrl);
+                    }
+                    this.pdfUrl = URL.createObjectURL(blob);
+                    this.$emit('showPDF', this.pdfUrl);
+                });
             },
-        }
+        },
     }
 </script>
