@@ -46,7 +46,8 @@
         <div class="row mt-4">
             <div class="col-md-6 offset-md-3">
                 <InvoiceForm 
-                    v-if="showInvoiceForm" 
+                    v-if="showInvoiceForm"
+                    @showPDF="showPDFFile"
                 />
             </div>
             <div class="col-md-7 offset-md-1">
@@ -87,7 +88,7 @@
                 this.isLoading = true;
                 const file = event.target.files[0];
                 if (!file || file.type !== 'application/pdf') {
-                    alert('Por favor, selecione um arquivo PDF.');
+                    alert("It should be a PDF file!");
                     return
                 }
                 
@@ -104,7 +105,7 @@
             },
             downloadPDF() {
                 if (!this.pdfUrl || !this.pdfFile) {
-                    alert('Nenhum PDF carregado.')
+                    alert("No PDF file loaded.")
                     return;
                 }
 
@@ -117,6 +118,10 @@
                 document.body.removeChild(link);
                 this.isLoading = false;
             },
+            showPDFFile(pdfFile) {
+                this.pdfUrl = pdfFile;
+                this.togglePDFViewer();
+            }
         },
         beforeUnmount() {
             if (this.pdfUrl) {
