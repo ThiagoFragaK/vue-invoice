@@ -1,19 +1,19 @@
 # 📄 Vue Invoice Generator
 
-Um pequeno projeto em **Nuxt 3** com **Vue 3 (Options API)** que permite gerar, visualizar e fazer o download de faturas (invoices) no formato PDF diretamente do navegador.
+A small **Nuxt 3** project using **Vue 3 (Options API)** that allows you to generate, view, and download invoices in PDF format directly from the browser.
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- ✅ Formulário para preenchimento completo da fatura
-- ✅ Adição e remoção dinâmica de itens
-- ✅ Geração de PDF em memória usando [pdfMake](https://pdfmake.github.io/docs/)
-- ✅ Visualização do PDF em tela (sem necessidade de upload)
-- ✅ Download opcional do PDF
-- ✅ UI com Bootstrap 5 + Lucide Icons
+- ✅ Full invoice form
+- ✅ Dynamically add and remove items
+- ✅ In-browser PDF generation using [pdfMake](https://pdfmake.github.io/docs/)
+- ✅ Inline PDF preview (no upload needed)
+- ✅ Optional PDF download
+- ✅ UI styled with Bootstrap 5 + Lucide Icons
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
 - [Nuxt 3](https://nuxt.com/)
 - [Vue 3 - Options API](https://vuejs.org/)
@@ -23,16 +23,16 @@ Um pequeno projeto em **Nuxt 3** com **Vue 3 (Options API)** que permite gerar, 
 
 ---
 
-## 📦 Instalação
+## 📦 Installation
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/vue-invoice.git
+# Clone the repository
+git clone https://github.com/your-username/vue-invoice.git
 cd vue-invoice
 
-# Instale as dependências
+# Install dependencies
 npm install
 
-# Rode o servidor de desenvolvimento
+# Run development server
 npm run dev
 ```
