@@ -188,6 +188,7 @@
         title="Confirm the information provided"
         message="Are you sure you want to generate the Invoice?"
         @confirm="generateInvoice"
+        ref="ConfirmDialog"
     />
 </template>
 
@@ -292,6 +293,8 @@
                     this.pdfUrl = URL.createObjectURL(blob);
                     this.$emit('showPDF', this.pdfUrl);
                 });
+
+                this.$refs.ConfirmDialog.close();
             },
         },
     }
