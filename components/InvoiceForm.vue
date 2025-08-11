@@ -195,7 +195,7 @@
     import ConfirmDialog from "@/components/ConfirmDialog.vue";
     import pdfMake from 'pdfmake/build/pdfmake';
     import pdfFonts from 'pdfmake/build/vfs_fonts';
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    pdfMake.vfs = pdfFonts.vfs; 
     
     export default {
         name: "InvoiceForm",
