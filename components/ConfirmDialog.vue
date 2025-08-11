@@ -40,7 +40,6 @@
                     <button
                         type="button"
                         class="btn btn-danger mx-4"
-                        data-bs-dismiss="modal"
                         @click="$emit('confirm')"
                     >
                         Confirm
